@@ -1,0 +1,46 @@
+pipeline{
+    agent any
+    environment {
+        SONAR_HOME = tool "Sonar"
+    }
+    stages{
+        stage("code"){
+            steps{
+                git url:"https://github.com/Swayamnakshane/simple-note-tracking-web-app.git", branch:"dev"
+            }
+        }
+         stage("build"){
+            steps{
+                sh "docker build -t myapp ."
+            }
+        }
+        stage("SonarQube Analysis") {
+            steps {
+                withSonarQubeEnv("Sonar") {
+                    sh """
+                        ${SONAR_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectName=myapp \
+                        -Dsonar.projectKey=myapp \
+                    """
+                }
+            }
+        }
+         stage("sonar qaulity gate"){
+            steps{
+                timeout(time:2, unit: "MINUTES"){
+                    waitForQualityGate abortPipeline:false
+                }
+            }
+        }
+        stage("trivy"){
+            steps{
+                sh "trivy fs --format table -o trivy-fs-report.html ."
+            }
+        }
+        stage("deploy"){
+            steps{
+                sh "docker compose down && docker compose up -d"
+            }
+        }
+    }
+}
