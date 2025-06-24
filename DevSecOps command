@@ -1,0 +1,42 @@
+ 1  cat /etc/groups
+    2  cat /etc/group
+    3  clear
+    4  cat /etc/group
+    5  clear
+    6  docker ps
+    7  clear
+    8  docker run -itd --name sonarqube-server -p 9000:9000 sonarqube:lts-community
+    9  docker ps
+   10  docker images
+   11  clear
+   12  docker ps
+   13  cat /etc/group
+   14  clear
+   15  docker ps
+   16  sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+   17  wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+   18  echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+   19  sudo apt-get update -y
+   20  sudo apt-get install trivy -y
+   21  clear
+   22  trivy --version
+   23  clear
+   24  cat /ect/group
+   25  cat /etc/group
+   26  clear
+   27  systemctl restart docker
+   28  sudo systemctl restart docker
+   29  clear
+   30  sudo systemctl restart jenkins
+   31  systemctl status jenkins
+   32  clear
+   33  docker ps
+   34  docker ps -a
+   35  docker restart 0ee977be2b7a
+   36  docker ps
+   37  clear
+   38  docker images
+   39  trivy fs myapp
+   40  trivy fs mysql
+   41  clear
+   42  history
