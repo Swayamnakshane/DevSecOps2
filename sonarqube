@@ -1,0 +1,6 @@
+docker run -itd --name sonarqube-server  -p 9000:9000 sonarqube:lst-community
+
+Required plugins:
+1) sonarqube server
+2) sonarQaulityGate
+3) pipeline stage view 
